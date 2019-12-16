@@ -5,6 +5,29 @@ str(cars)
 
 #회귀분석
 m<- lm(dist~speed, data =cars)
+'TIL 
+* w? =  독립변수X의 영향력!
+(모수_파라미터) = speed가 한 단위 변화했을 때 y의 평균적인 기대변화량(방향성+크기)
+* b? = X와 무관한 디폴트값!
+독립변수X의 단위변화(변동)에도 Y의 변동에는 영향을 주지 않는 값(also 회귀계수)
+* e? = 오차항
+  X의 영향력을 제외한 다른 모든 영향력을 나타낸다.
+
+
+ MEAN?
+ 회귀식 = speed(x)가 한 단위 변화했을 떄의 y의 평균적인 기대변화량 
+        = 모든 실제 관측치를 Y(dist)에 대해서 가장 최소의 오차를 보여주는 평균적인 기대변화관계성을 찾는 선형수식
+
+  HOW?
+ 최소제곱합 : [ 오차 = |y-y^| = |y-(Wx+b)| ]  의 제곱합을 최소로 하는 W와 b값!! 
+
+  effectiveness?
+ R^2 : F-test ~ SSR/SST = 회귀추정편차^2/평균추정편차^2
+
+  Validance
+ F-test ~ 축소모델(상수값) - 전체모델(회귀식) '
+
+
 
 
 #만능함수 _ 상세정보
@@ -12,6 +35,11 @@ summary(m)
 'T검정 귀무가설 : 각각의 계수가 0이어도 차이가 없다.   0일 때와 0이 아닐 때를 비교'
 'F검정 귀무가설 : 평균?  y(=1)와 회귀식 y 차이가 없다.  분산비교로 검정'
 
+'TIL
+정규성을 지닌 분포 간의 차이검정은 T-test
+회귀식의 비교 - F-test "분산검정" 이용 축소모델-전체모형  : 2개 그룹비교에도 ANOVA사용 가능이었다._계산이 복잡해서 T-test'
+
+'단일 선형회귀식에서는 Multiple R-scquared : 0.6511'
 
 par(mfrow=c(2,2), mar=c(2,2,2,2))
 
@@ -37,7 +65,7 @@ dwtest(m)
 
 
 
-##lm F-statistics : 축소모형(reduced model과 완전모형 full model) 간의 검정
+##lm F-statistics : 축소모형(reduced model)과 전체모형(full model) 간의 검정
 ' 완전 모델은 원래 사용한 모델 dist ~ speed며, 
 축소 모델은 원래 사용한 모델보다 설명 변수를 줄인 모델로 
 => speed를 제외하고 dist를 상숫값으로 예측한 경우다.'
@@ -49,4 +77,4 @@ anova(
 #summary(lm)이 보여주는 F통계량은 annova()함수를 이용해 직접 구할 수 있다.
 full <- lm(dist ~ speed, data=cars)
 reduced <- lm(dist ~ 1, data=cars)
-anova(reduced,full)
+anova(full,reduced)
